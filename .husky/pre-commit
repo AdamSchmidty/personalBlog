@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Check if any markdown files in content/posts have been modified
+if git diff --cached --name-only | grep -q "content/posts/.*\.mdx"; then
+  echo "🔄 Markdown files detected, regenerating search index..."
+  node scripts/generate-search-index.js
+  git add public/search-index.json
+  echo "✅ Search index updated and staged"
+else
+  echo "ℹ️  No markdown files changed, skipping search index update"
+fi

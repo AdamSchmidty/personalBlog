@@ -26,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.className} style={{ overscrollBehaviorY: "none" }}>
         <Navigation />
         <main>{children}</main>
         <footer className="bg-gray-800 text-white py-8 mt-16">

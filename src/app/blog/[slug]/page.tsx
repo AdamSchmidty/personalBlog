@@ -58,19 +58,19 @@ export default function PostPage({ params }: PostPageProps) {
 
         {/* Post Header */}
         <header className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
             {post.title}
           </h1>
-          <div className="flex items-center text-sm text-gray-500 mb-4">
-            <time dateTime={post.date}>
+          <div className="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 mb-4 gap-2 sm:gap-0">
+            <time dateTime={post.date} className="shrink-0">
               {new Date(post.date).toLocaleDateString()}
             </time>
             {post.tags.length > 0 && (
-              <div className="ml-4 flex gap-2">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2 sm:ml-4">
                 {post.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
+                    className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full whitespace-nowrap"
                   >
                     {tag}
                   </span>
@@ -79,12 +79,14 @@ export default function PostPage({ params }: PostPageProps) {
             )}
           </div>
           {post.excerpt && (
-            <p className="text-xl text-gray-600">{post.excerpt}</p>
+            <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
+              {post.excerpt}
+            </p>
           )}
         </header>
 
         {/* Post Content with Typography */}
-        <article className="bg-white rounded-lg shadow-md p-8 border border-gray-200">
+        <article className="bg-white rounded-lg shadow-md p-4 md:p-8 border border-gray-200">
           <div className="prose prose-lg max-w-none prose-headings:text-black prose-h1:text-3xl prose-h1:font-bold prose-h2:text-2xl prose-h2:font-semibold prose-h3:text-xl prose-h3:font-semibold prose-p:text-black prose-p:leading-relaxed prose-strong:text-black prose-strong:font-semibold prose-ul:text-black prose-li:text-black prose-code:bg-gray-200 prose-code:text-black prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:font-mono prose-pre:bg-gray-900 prose-pre:text-white prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto">
             <Markdown
               options={{

@@ -34,14 +34,26 @@ export default function BlogPage() {
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
               >
                 <div className="p-6">
-                  <div className="flex items-center text-sm text-gray-500 mb-2">
-                    <time dateTime={post.date}>
+                  <div className="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 mb-2 gap-1 sm:gap-0">
+                    <time dateTime={post.date} className="shrink-0">
                       {new Date(post.date).toLocaleDateString()}
                     </time>
                     {post.tags.length > 0 && (
-                      <span className="ml-2 px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
-                        {post.tags[0]}
-                      </span>
+                      <div className="flex flex-wrap gap-1 sm:gap-2 sm:ml-2">
+                        {post.tags.slice(0, 2).map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full whitespace-nowrap"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                        {post.tags.length > 2 && (
+                          <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full whitespace-nowrap">
+                            +{post.tags.length - 2}
+                          </span>
+                        )}
+                      </div>
                     )}
                   </div>
                   <h2 className="text-xl font-semibold text-gray-900 mb-2">

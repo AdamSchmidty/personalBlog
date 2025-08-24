@@ -127,13 +127,13 @@ export default function Search({ className = "" }: SearchProps) {
       <div className="relative">
         <input
           type="text"
-          placeholder="Search by title, tags, or content..."
+          placeholder="Search posts..."
           value={query}
           onChange={(e) => handleSearch(e.target.value)}
-          className="w-full px-4 py-2 pl-10 pr-4 text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-3 md:px-4 py-2 pl-8 md:pl-10 pr-8 md:pr-4 text-sm md:text-base text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
         <svg
-          className="absolute left-3 top-2.5 h-5 w-5 text-gray-400"
+          className="absolute left-2 md:left-3 top-2.5 h-4 md:h-5 w-4 md:w-5 text-gray-400"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -151,11 +151,11 @@ export default function Search({ className = "" }: SearchProps) {
               setQuery("");
               setResults([]);
             }}
-            className="absolute right-3 top-2.5 h-5 w-5 text-gray-400 hover:text-gray-600"
+            className="absolute right-2 md:right-3 top-2.5 h-4 md:h-5 w-4 md:w-5 text-gray-400 hover:text-gray-600"
             type="button"
           >
             <svg
-              className="h-5 w-5"
+              className="h-4 md:h-5 w-4 md:w-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -173,44 +173,49 @@ export default function Search({ className = "" }: SearchProps) {
 
       {/* Search Results */}
       {query && (
-        <div className="absolute z-10 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-lg animate-in fade-in-0 slide-in-from-top-2 duration-200">
+        <div className="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-xl animate-in fade-in-0 slide-in-from-top-2 duration-200 md:max-w-lg">
           {isLoading ? (
             <div className="p-4 text-center text-gray-500">Searching...</div>
           ) : results.length > 0 ? (
-            <div className="max-h-96 overflow-y-auto">
+            <div className="max-h-80 md:max-h-96 overflow-y-auto">
               {results.map((result, index) => (
                 <Link
                   key={index}
                   href={result.item.url}
                   onClick={handleResultClick}
-                  className="block p-4 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors duration-150"
+                  className="block p-3 md:p-4 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors duration-150"
                 >
-                  <div className="font-medium text-gray-900">
+                  <div className="font-medium text-gray-900 text-sm md:text-base line-clamp-2">
                     {result.item.title}
                   </div>
-                  <div className="text-sm text-gray-600 mt-1">
+                  <div className="text-xs md:text-sm text-gray-600 mt-1 line-clamp-2">
                     {result.item.excerpt}
                   </div>
                   {result.item.tags && result.item.tags.length > 0 && (
-                    <div className="flex gap-2 mt-2 flex-wrap">
-                      {result.item.tags.map((tag, tagIndex) => (
+                    <div className="flex gap-1 md:gap-2 mt-2 flex-wrap">
+                      {result.item.tags.slice(0, 3).map((tag, tagIndex) => (
                         <span
                           key={tagIndex}
-                          className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full whitespace-nowrap min-w-fit"
+                          className="px-1.5 md:px-2 py-0.5 md:py-1 bg-blue-100 text-blue-800 text-xs rounded-full whitespace-nowrap"
                         >
                           {tag}
                         </span>
                       ))}
+                      {result.item.tags.length > 3 && (
+                        <span className="px-1.5 md:px-2 py-0.5 md:py-1 bg-gray-100 text-gray-600 text-xs rounded-full whitespace-nowrap">
+                          +{result.item.tags.length - 3}
+                        </span>
+                      )}
                     </div>
                   )}
-                  <div className="text-xs text-gray-400 mt-2">
+                  <div className="text-xs text-gray-400 mt-1 md:mt-2">
                     {new Date(result.item.date).toLocaleDateString()}
                   </div>
                 </Link>
               ))}
             </div>
           ) : (
-            <div className="p-4 text-center text-gray-500">
+            <div className="p-3 md:p-4 text-center text-gray-500 text-sm">
               No results found
             </div>
           )}

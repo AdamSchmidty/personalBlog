@@ -19,26 +19,13 @@ export default function ContactPage() {
     setSubmitStatus("idle");
 
     try {
-      // Option 1: Formspree (uncomment and configure)
-      // const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(formData),
-      // })
-
-      // Option 2: Custom API route (uncomment when you create the API route)
-      // const response = await fetch('/api/contact', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(formData),
-      // })
-
-      // For now, simulate a successful submission
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const response = await fetch("https://formspree.io/f/xandwbaw", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       setSubmitStatus("success");
       setFormData({ name: "", email: "", message: "" });
@@ -193,48 +180,33 @@ export default function ContactPage() {
           </form>
         </div>
 
-        {/* Additional Contact Info */}
-        <div className="mt-12 bg-white rounded-lg shadow-sm p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
-            Other Ways to Connect
-          </h2>
-          <div className="grid gap-6 md:grid-cols-2">
-            <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Email</h3>
-              <p className="text-gray-600">
-                Feel free to reach out directly via email if you prefer.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Social Media
-              </h3>
-              <p className="text-gray-600">
-                Connect with me on social platforms for updates and discussions.
-              </p>
+        {/* Additional Contact Info - disable for now*/}
+        {false && (
+          <div className="mt-12 bg-white rounded-lg shadow-sm p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              Other Ways to Connect
+            </h2>
+            <div className="grid gap-6 md:grid-cols-2">
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  Email
+                </h3>
+                <p className="text-gray-600">
+                  Feel free to reach out directly via email if you prefer.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  Social Media
+                </h3>
+                <p className="text-gray-600">
+                  Connect with me on social platforms for updates and
+                  discussions.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-
-        {/* Setup Instructions */}
-        <div className="mt-8 bg-blue-50 border border-blue-200 rounded-md p-6">
-          <h3 className="text-lg font-medium text-blue-900 mb-3">
-            Setup Instructions
-          </h3>
-          <p className="text-blue-800 text-sm mb-3">
-            To make the contact form functional, you have two options:
-          </p>
-          <ol className="text-blue-800 text-sm list-decimal list-inside space-y-1">
-            <li>
-              <strong>Formspree:</strong> Sign up at formspree.io and replace
-              YOUR_FORM_ID in the code
-            </li>
-            <li>
-              <strong>Custom API Route:</strong> Create
-              src/app/api/contact/route.ts for a custom solution
-            </li>
-          </ol>
-        </div>
+        )}
       </div>
     </div>
   );

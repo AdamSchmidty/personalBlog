@@ -13,12 +13,16 @@ export default function Home() {
       <section className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl md:text-6xl">
-            Schmidt&apos;s Blog
+            Adam&apos;s Blog
           </h1>
-          <p className="mt-6 text-xl text-gray-600 max-w-3xl mx-auto">
-            Exploring web development, technology, and everything in between.
-            Built with Next.js, Contentlayer, and modern web technologies.
-          </p>
+          <div className="mt-6 max-w-3xl mx-auto text-center">
+            <p className="text-xl text-gray-600 leading-relaxed font-medium">
+              Adam Schmidt&apos;s essays on all things technology, life,
+            </p>
+            <p className="text-xl text-gray-600 leading-relaxed font-medium mt-1">
+              productivity, and language-learning.
+            </p>
+          </div>
           <div className="mt-10">
             <Link
               href="/blog"

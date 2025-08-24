@@ -1,12 +1,49 @@
+"use client";
+
 import Link from "next/link";
+import { useState, useMemo } from "react";
 import Search from "@/components/Search";
+import TagFilter from "@/components/TagFilter";
 import { allPosts } from ".contentlayer/generated";
 import { compareDesc } from "date-fns";
 
 export default function BlogPage() {
-  const posts = allPosts.sort((a, b) =>
-    compareDesc(new Date(a.date), new Date(b.date))
-  );
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
+  // Extract all unique tags from posts
+  const allTags = useMemo(() => {
+    const tags = new Set<string>();
+    allPosts.forEach((post) => {
+      post.tags.forEach((tag) => tags.add(tag));
+    });
+    return Array.from(tags).sort();
+  }, []);
+
+  // Filter posts based on selected tags
+  const filteredPosts = useMemo(() => {
+    if (selectedTags.length === 0) {
+      return allPosts.sort((a, b) =>
+        compareDesc(new Date(a.date), new Date(b.date))
+      );
+    }
+
+    return allPosts
+      .filter((post) => {
+        // Post must have ALL selected tags (AND logic)
+        return selectedTags.every((tag) => post.tags.includes(tag));
+      })
+      .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
+  }, [allPosts, selectedTags]);
+
+  const handleTagToggle = (tag: string) => {
+    setSelectedTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    );
+  };
+
+  const handleClearFilters = () => {
+    setSelectedTags([]);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -21,14 +58,25 @@ export default function BlogPage() {
         </div>
 
         {/* Search */}
-        <div className="max-w-2xl mx-auto mb-12">
+        <div className="max-w-2xl mx-auto mb-8">
           <Search className="w-full" />
         </div>
 
+        {/* Tag Filter */}
+        <div className="max-w-4xl mx-auto mb-8">
+          <TagFilter
+            allTags={allTags}
+            selectedTags={selectedTags}
+            onTagToggle={handleTagToggle}
+            onClearFilters={handleClearFilters}
+            className="w-full"
+          />
+        </div>
+
         {/* Posts Grid */}
-        {posts.length > 0 ? (
+        {filteredPosts.length > 0 ? (
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => (
+            {filteredPosts.map((post) => (
               <article
                 key={post._id}
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
@@ -36,7 +84,11 @@ export default function BlogPage() {
                 <div className="p-6">
                   <div className="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 mb-2 gap-1 sm:gap-0">
                     <time dateTime={post.date} className="shrink-0">
-                      {new Date(post.date).toLocaleDateString()}
+                      {new Date(post.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
                     </time>
                     {post.tags.length > 0 && (
                       <div className="flex flex-wrap gap-1 sm:gap-2 sm:ml-2">
@@ -90,21 +142,33 @@ export default function BlogPage() {
               </svg>
             </div>
             <h3 className="text-lg font-medium text-gray-900 mb-2">
-              No posts yet
+              {selectedTags.length > 0
+                ? "No posts match your filters"
+                : "No posts yet"}
             </h3>
             <p className="text-gray-600 mb-6">
-              Posts will appear here once you add them to the content/posts
-              folder.
+              {selectedTags.length > 0
+                ? `Try adjusting your tag filters or clear all filters to see all posts.`
+                : "Posts will appear here once you add them to the content/posts folder."}
             </p>
-            <div className="text-sm text-gray-500">
-              <p>To add a post:</p>
-              <ol className="list-decimal list-inside mt-2 space-y-1">
-                <li>Create a new .mdx file in the content/posts folder</li>
-                <li>Add frontmatter with title, date, excerpt, and slug</li>
-                <li>Write your content in Markdown/MDX format</li>
-                <li>Build the project to generate the post</li>
-              </ol>
-            </div>
+            {selectedTags.length > 0 ? (
+              <button
+                onClick={handleClearFilters}
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                Clear all filters
+              </button>
+            ) : (
+              <div className="text-sm text-gray-500">
+                <p>To add a post:</p>
+                <ol className="list-decimal list-inside mt-2 space-y-1">
+                  <li>Create a new .mdx file in the content/posts folder</li>
+                  <li>Add frontmatter with title, date, excerpt, and slug</li>
+                  <li>Write your content in Markdown/MDX format</li>
+                  <li>Build the project to generate the post</li>
+                </ol>
+              </div>
+            )}
           </div>
         )}
       </div>

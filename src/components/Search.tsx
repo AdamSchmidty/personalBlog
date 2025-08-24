@@ -209,7 +209,11 @@ export default function Search({ className = "" }: SearchProps) {
                     </div>
                   )}
                   <div className="text-xs text-gray-400 mt-1 md:mt-2">
-                    {new Date(result.item.date).toLocaleDateString()}
+                    {new Date(result.item.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
                   </div>
                 </Link>
               ))}

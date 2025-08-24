@@ -6,16 +6,24 @@ import Navigation from "@/components/Navigation";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "My Markdown Blog",
+  title: "Adam Schmidt's Blog",
   description:
-    "A modern blog built with Next.js, Contentlayer, and Tailwind CSS",
-  keywords: ["blog", "nextjs", "contentlayer", "markdown", "web development"],
-  authors: [{ name: "Your Name" }],
+    "Adam Schmidt's essays on all things technology, life, productivity, and language-learning.",
+  keywords: [
+    "blog",
+    "web development",
+    "technology",
+    "life",
+    "productivity",
+    "language-learning",
+  ],
+  authors: [{ name: "Adam Schmidt" }],
   openGraph: {
-    title: "My Markdown Blog",
+    title: "Adam Schmidt's Blog",
     description:
-      "A modern blog built with Next.js, Contentlayer, and Tailwind CSS",
+      "Adam Schmidt's essays on all things technology, life, productivity, and language-learning.",
     type: "website",
+    url: "https://adam-schmidt.com",
   },
 };
 

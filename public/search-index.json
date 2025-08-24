@@ -5,12 +5,11 @@
       "excerpt": "Welcome to my new blog built with Next.js and Contentlayer. This is my first post exploring the world of modern web development.",
       "tags": [
         "nextjs",
-        "contentlayer",
-        "web-development"
+        "test-post"
       ],
-      "slug": "hello-world",
+      "slug": "firstPost",
       "date": "2025-01-18T00:00:00.000Z",
-      "url": "/blog/hello-world"
+      "url": "/blog/firstPost"
     },
     {
       "title": "Hello World: My First Blog Post",
@@ -25,5 +24,5 @@
       "url": "/blog/hello-world"
     }
   ],
-  "lastUpdated": "2025-08-24T04:42:52.909Z"
+  "lastUpdated": "2025-08-24T22:04:36.084Z"
 }

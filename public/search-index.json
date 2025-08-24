@@ -1,7 +1,7 @@
 {
   "posts": [
     {
-      "title": "How I build this",
+      "title": "How I built this",
       "excerpt": "How I built this blog",
       "tags": [
         "programming"
@@ -11,5 +11,5 @@
       "url": "/blog/how-i-buildp-this"
     }
   ],
-  "lastUpdated": "2025-08-24T22:34:57.342Z"
+  "lastUpdated": "2025-08-24T22:37:59.229Z"
 }

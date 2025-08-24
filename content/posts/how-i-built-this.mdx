@@ -1,0 +1,51 @@
+---
+title: "How I build this"
+date: "2025-08-24"
+excerpt: "How I built this blog"
+slug: "how-i-buildp-this"
+tags: ["programming"]
+featured: true
+---
+
+# How I built this
+
+I always wanted to have a personal blog; but I never seriously pursued it until August 23rd, 2025, where I woke up one day and decided to try “vibe coding” for the first time in my life.
+
+For context, I’m a backend software engineer. Most of my professional experience is in Java and Spring Boot. My CSS skills are pretty minimal, and my React knowledge comes almost entirely from my college capstone project, which I built using rudimentary knowledge of a few hooks.
+
+It was pretty comedic - we had built search functionality into a ReactTable that completely refreshed the table component every time you typed in a key. The search worked; but it would leave you with a need for an aspirin after typing in a phrase.
+
+I began by utilizing ChatGPT deep research with the following prompt:
+
+\*The original chat can be found here - [https://chatgpt.com/share/68ab8fd7-aabc-800a-9b74-48f62b62a52c](https://chatgpt.com/share/68ab8fd7-aabc-800a-9b74-48f62b62a52c)
+
+```markdown
+I want to make a personal blog in react JS. I'll utilize the cursor agent mode to set up the project.
+
+I want to keep it pretty simple - about me page; blogs posts; contact us.
+
+What's a good format for making the blogposts and updating the website? Just hardcoding into frontend or doing some backend db?
+```
+
+Afterwards; it responded with a Cursor prompt to use with Agent mode:
+
+```markdown
+Create a new Next.js project (using the App Router, TypeScript optional) named "my-markdown-blog". In the root, install and configure the following:
+
+- Contentlayer 2 (with next-contentlayer2 plugin) for Markdown content. In `contentlayer.config.ts`, set up a document type for blog posts (e.g., `Post` with fields like title, date, slug).
+- MDX support (optional): add `@next/mdx` to `next.config.js` so that `.md` and `.mdx` files in the `/posts` or `/content/posts` folder are treated as pages. Or configure Contentlayer to use MDX.
+- Tailwind CSS (optional) for styling. Initialize `tailwind.config.js` and import Tailwind in `globals.css`.
+- In the project structure, create a `content/posts/` folder and add one example Markdown file with frontmatter (title, date, excerpt, etc.).
+- Under `src/app/`, scaffold pages: `page.tsx` for the homepage, `about/page.tsx` and `contact/page.tsx` for static pages, and a `blog/` folder. In `blog/`, create `page.tsx` (to list posts) and `[slug]/page.tsx` (to render each post). Use `getStaticProps`/`getStaticPaths` or Contentlayer to load and render the Markdown content in the `[slug]/page.tsx`.
+- Implement a simple post list in `blog/page.tsx` that links to each post’s page (use `<Link>`). Extract titles and dates from frontmatter.
+- Install and configure a search library: e.g. install `fuse.js`, then generate a JSON index of all post titles and content at build time. Add a search input component that queries this index and displays matching post links.
+- For the Contact page, set up a basic form (name, email, message) that either uses a service like Formspree or a Next.js API route to send an email.
+- Ensure the project builds and deploys on Vercel (no custom server needed). Set `output: 'export'` in `next.config.js` if you want a fully static export.
+- (Optional) Set up Husky or a pre-commit hook so that whenever you add a new Markdown file and commit, the search index is regenerated automatically.
+```
+
+To my surprise - it did a fantastic job setting up the original skeleton of the design. By continually iterating, I was able to get features such as mobile-friendly design, search, and filtering by tags to work.
+
+Once I finished, I was able to purchase this domain for $1.00 off of GoDaddy, and thanks to Vercel’s magic, their CI/CD pipeline automatically builds & deploys this project whenever I push to my remote repository. Pretty neat!
+
+In order to publish a blog post, it’s pretty simple. I just write up the post within Notion and I can export it as a markdown file. After that, I can commit it and the markdown library will convert the markdown into a react component.

@@ -1,28 +1,15 @@
 {
   "posts": [
     {
-      "title": "Is this thing on",
-      "excerpt": "Welcome to my new blog built with Next.js and Contentlayer. This is my first post exploring the world of modern web development.",
+      "title": "How I build this",
+      "excerpt": "How I built this blog",
       "tags": [
-        "nextjs",
-        "test-post"
+        "programming"
       ],
-      "slug": "firstPost",
-      "date": "2025-01-18T00:00:00.000Z",
-      "url": "/blog/firstPost"
-    },
-    {
-      "title": "Hello World: My First Blog Post",
-      "excerpt": "Welcome to my new blog built with Next.js and Contentlayer. This is my first post exploring the world of modern web development.",
-      "tags": [
-        "nextjs",
-        "contentlayer",
-        "web-development"
-      ],
-      "slug": "hello-world",
-      "date": "2024-01-13T00:00:00.000Z",
-      "url": "/blog/hello-world"
+      "slug": "how-i-buildp-this",
+      "date": "2025-08-24T00:00:00.000Z",
+      "url": "/blog/how-i-buildp-this"
     }
   ],
-  "lastUpdated": "2025-08-24T22:04:36.084Z"
+  "lastUpdated": "2025-08-24T22:34:57.342Z"
 }

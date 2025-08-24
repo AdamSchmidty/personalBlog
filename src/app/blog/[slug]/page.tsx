@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Metadata } from "next";
 import { allPosts } from ".contentlayer/generated";
-import { useMDXComponent } from "next-contentlayer/hooks";
+import Markdown from "markdown-to-jsx";
 
 interface PostPageProps {
   params: {
@@ -40,11 +40,11 @@ export default function PostPage({ params }: PostPageProps) {
     notFound();
   }
 
-  // Display the raw markdown content
+  // Use markdown-to-jsx for proper rendering
   const content = post.body.raw || "Content not available";
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Back to blog */}
         <div className="mb-8">
@@ -83,10 +83,66 @@ export default function PostPage({ params }: PostPageProps) {
           )}
         </header>
 
-        {/* Post Content */}
-        <article className="prose prose-lg max-w-none">
-          <div className="bg-white rounded-lg shadow-sm p-8">
-            <pre className="whitespace-pre-wrap text-sm">{content}</pre>
+        {/* Post Content with Typography */}
+        <article className="bg-white rounded-lg shadow-md p-8 border border-gray-200">
+          <div className="prose prose-lg max-w-none prose-headings:text-black prose-h1:text-3xl prose-h1:font-bold prose-h2:text-2xl prose-h2:font-semibold prose-h3:text-xl prose-h3:font-semibold prose-p:text-black prose-p:leading-relaxed prose-strong:text-black prose-strong:font-semibold prose-ul:text-black prose-li:text-black prose-code:bg-gray-200 prose-code:text-black prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:font-mono prose-pre:bg-gray-900 prose-pre:text-white prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto">
+            <Markdown
+              options={{
+                overrides: {
+                  h1: {
+                    component: "h1",
+                    props: { className: "text-3xl font-bold text-black mb-4" },
+                  },
+                  h2: {
+                    component: "h2",
+                    props: {
+                      className: "text-2xl font-semibold text-black mb-3 mt-6",
+                    },
+                  },
+                  h3: {
+                    component: "h3",
+                    props: {
+                      className: "text-xl font-semibold text-black mb-2 mt-4",
+                    },
+                  },
+                  p: {
+                    component: "p",
+                    props: { className: "text-black mb-4 leading-relaxed" },
+                  },
+                  strong: {
+                    component: "strong",
+                    props: { className: "font-semibold text-black" },
+                  },
+                  ul: {
+                    component: "ul",
+                    props: {
+                      className:
+                        "list-disc list-inside text-black mb-4 space-y-2",
+                    },
+                  },
+                  li: {
+                    component: "li",
+                    props: { className: "text-black" },
+                  },
+                  // code: {
+                  //   component: "code",
+                  //   props: {
+                  //     className:
+                  //       "bg-gray-200 text-black px-2 py-1 rounded font-mono text-sm",
+                  //   },
+                  // },
+                  pre: {
+                    component: "pre",
+                    props: {
+                      className:
+                        "bg-gray-900 text-white p-4 rounded-lg overflow-x-auto mb-4",
+                    },
+                  },
+                },
+              }}
+            >
+              {content}
+            </Markdown>
           </div>
         </article>
 

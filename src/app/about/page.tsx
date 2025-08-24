@@ -266,17 +266,6 @@ export default function AboutPage() {
                     <span className="text-amber-900 font-bold text-sm">!</span>
                   </div>
                 </div>
-                <div>
-                  <h4 className="text-lg font-semibold text-amber-900 mb-2">
-                    Open Source Note
-                  </h4>
-                  <p className="text-amber-800 leading-relaxed">
-                    This blog is open source and serves as both a personal blog
-                    and a demonstration of modern web development practices.
-                    Feel free to explore the code and use it as inspiration for
-                    your own projects.
-                  </p>
-                </div>
               </div>
             </div>
           </div>

@@ -7,9 +7,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  experimental: {
-    mdxRs: true,
-  },
 };
 
 module.exports = withContentlayer(nextConfig);
